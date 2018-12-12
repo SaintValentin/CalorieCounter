@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string-array name="days_array" tools:ignore="ExtraTranslation">
+        <item>Вчера</item>
+        <item>Сегодня</item>
+        <item>Завтра</item>
+    </string-array>
+
+    <string-array name="meal_array">
+        <item>Завтрак</item>
+        <item>Перекус</item>
+        <item>Обед</item>
+        <item>Полдник</item>
+        <item>Ужин</item>
+    </string-array>
+
+    <string-array name="graphics_days_array">
+        <item>7 дней</item>
+        <item>15 дней</item>
+        <item>30 дней</item>
+        <item>90 дней</item>
+        <item>Все дни</item>
+    </string-array>
+
+    <string-array name="muscle_volumes_array">
+        <item>Шея</item>
+        <item>Бицепс</item>
+        <item>Предплечье</item>
+        <item>Плечи</item>
+        <item>Грудь</item>
+        <item>Талия</item>
+        <item>Бёдра</item>
+        <item>Бедро</item>
+        <item>Голень</item>
+    </string-array>
+
+    <string-array name="minutes_array">
+        <item>минута</item>
+        <item>минуты</item>
+        <item>минут</item>
+    </string-array>
+
+    <string-array name="sex_array">
+        <item>женский</item>
+        <item>мужской</item>
+    </string-array>
+
+    <string-array name="repeats_array">
+        <item>повторение</item>
+        <item>повторения</item>
+        <item>повторений</item>
+    </string-array>
+
+    <string-array name="sets_array">
+        <item>подход</item>
+        <item>подхода</item>
+        <item>подходов</item>
+    </string-array>
+    
+</resources>

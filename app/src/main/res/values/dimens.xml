@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="profile_row_text_size">18sp</dimen>
+    <dimen name="profile_layout_margin_top_bottom">15dp</dimen>
+    <dimen name="profile_layout_margin_left_right">35dp</dimen>
+    <dimen name="profile_layout_text_size_top">22sp</dimen>
+    <dimen name="profile_layout_text_size_bottom">40sp</dimen>
+    <dimen name="profile_line_margin_left_right">10dp</dimen>
+    <dimen name="profile_small_text">12sp</dimen>
+    <dimen name="profile_figure_text_size">30sp</dimen>
+
+</resources>

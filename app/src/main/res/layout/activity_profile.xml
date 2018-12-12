@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/profile_scroll_view"
+    tools:ignore="MissingDefaultResource">
+
+    <TableLayout style="@style/profile_table_layout">
+
+        <TableRow
+            android:id="@+id/profile_row_sex"
+            android:onClick="onRowClick"
+            style="@style/profile_row">
+
+            <TextView
+                android:text="@string/profile_sex_name"
+                style="@style/profile_row_top_name" />
+
+            <TextView
+                android:id="@+id/profile_row_top_sex_value"
+                style="@style/profile_row_top_value" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/profile_row_birthday"
+            android:onClick="onRowClick"
+            style="@style/profile_row">
+
+            <TextView
+                android:text="@string/profile_birthday_name"
+                style="@style/profile_row_top_name" />
+
+            <TextView
+                android:id="@+id/birthday_textView"
+                style="@style/profile_row_top_value" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/profile_row_height"
+            android:onClick="onRowClick"
+            style="@style/profile_row">
+
+            <TextView
+                android:text="@string/profile_height_name"
+                style="@style/profile_row_top_name" />
+
+            <TextView
+                android:id="@+id/profile_height_textView"
+                style="@style/profile_row_top_value" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/profile_row_weight"
+            android:onClick="onRowClick"
+            style="@style/profile_row">
+
+            <TextView
+                android:text="@string/profile_weight_name"
+                style="@style/profile_row_top_name" />
+
+            <TextView
+                android:id="@+id/profile_weight_textView"
+                style="@style/profile_row_top_value" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/profile_row_action"
+            android:onClick="onRowClick"
+            style="@style/profile_row">
+
+            <TextView
+                android:text="@string/profile_activity_name"
+                style="@style/profile_row_top_name" />
+
+            <TextView
+                android:id="@+id/profile_action_textView"
+                style="@style/profile_row_top_value" />
+
+        </TableRow>
+
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@drawable/profile_border_calorie_norm_name"
+            android:layout_marginTop="@dimen/profile_layout_margin_top_bottom"
+            android:layout_marginStart="@dimen/profile_layout_margin_left_right"
+            android:layout_marginEnd="@dimen/profile_layout_margin_left_right"
+            android:gravity="center">
+
+            <TextView
+                android:text="@string/profile_day_norm_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/profile_layout_text_size_top"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:layout_marginStart="@dimen/profile_layout_margin_left_right"
+            android:layout_marginEnd="@dimen/profile_layout_margin_left_right"
+            android:layout_marginBottom="@dimen/profile_layout_margin_top_bottom"
+            android:gravity="center">
+
+            <TextView
+                android:text="3000"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:textAlignment="center"
+                android:textSize="@dimen/profile_layout_text_size_bottom"
+                android:translationY="-5dp"/>
+
+        </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/profile_line_margin_left_right"
+            android:layout_marginEnd="@dimen/profile_line_margin_left_right"
+            android:background="@color/colorGray"/>
+
+        <TextView
+            android:text="@string/profile_text_1"
+            style="@style/profile_more_info_text" />
+
+        <TableRow
+            android:id="@+id/profile_row_proteins"
+            style="@style/profile_row">
+
+            <TextView
+                android:text="@string/profile_proteins"
+                style="@style/profile_row_bottom_name" />
+
+            <TextView
+                android:id="@+id/proteins_textView"
+                style="@style/profile_row_bottom_value" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/profile_row_fats"
+            style="@style/profile_row">
+
+            <TextView
+                android:text="@string/profile_fats"
+                style="@style/profile_row_bottom_name" />
+
+            <TextView
+                android:id="@+id/fats_textView"
+                style="@style/profile_row_bottom_value"/>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/profile_row_carbohydrates"
+            style="@style/profile_row">
+
+            <TextView
+                android:text="@string/profile_carbohydrates"
+                style="@style/profile_row_bottom_name" />
+
+            <TextView
+                android:id="@+id/carbohydrates_textView"
+                style="@style/profile_row_bottom_value"/>
+        </TableRow>
+
+        <TextView
+            android:text="@string/profile_compounds_text"
+            style="@style/profile_more_info_text"/>
+
+
+
+        <TableRow
+            android:background="@drawable/profile_border_figure"
+            android:padding="0dp">
+
+            <TextView
+                android:text="@string/profile_figure"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/profile_figure_text_size"/>
+
+            <ImageButton
+                android:src="@drawable/add_shape"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:padding="0dp"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+</ScrollView>

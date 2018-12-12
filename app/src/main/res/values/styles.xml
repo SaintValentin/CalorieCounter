@@ -1,0 +1,90 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:textColor">@color/colorWight</item>
+
+        <item name="android:dropDownListViewStyle">@style/dropDownListViewStyle</item>
+    </style>
+
+    <style name="dropDownListViewStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:listSelector">@drawable/item_selector</item>
+    </style>
+
+    <style name="profile_scroll_view">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+    </style>
+
+    <style name="profile_table_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+    </style>
+
+    <style name="profile_row">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:background">@drawable/item_selector</item>
+    </style>
+
+    <style name="profile_row_top_name">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">0.7</item>
+        <item name="android:textSize">@dimen/profile_row_text_size</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="profile_row_top_value">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">0.5</item>
+        <item name="android:textSize">@dimen/profile_row_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="profile_row_bottom_name">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">0.3</item>
+        <item name="android:textSize">@dimen/profile_row_text_size</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="profile_row_bottom_value">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">0.7</item>
+        <item name="android:textSize">@dimen/profile_row_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="profile_more_info_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorGray</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">@dimen/profile_small_text</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+</resources>
