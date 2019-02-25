@@ -1,5 +1,6 @@
 package com.khakin.valentin.calorie_counter;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -11,17 +12,24 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.khakin.valentin.calorie_counter.db.UserDB;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    Calendar dateAndTime = Calendar.getInstance();
+    Calendar calendar = Calendar.getInstance();
     TextView sex, birthday, height, weight, activity, proteins, fats, carbohydrates, total;
+
+    UserDB userDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        userDB = new UserDB(this);
 
         sex = (TextView) findViewById(R.id.profile_row_top_sex_value);
         birthday = (TextView) findViewById(R.id.birthday_textView);
@@ -118,29 +126,49 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    public void setDate(){
+        int mYear = calendar.get(Calendar.YEAR);
+        int mMonth = calendar.get(Calendar.MONTH);
+        int mDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        if (monthOfYear < 10){
+                            birthday.setText(dayOfMonth + "." + "0" + (monthOfYear + 1) + "." + year);
+                        } else {
+                            birthday.setText(dayOfMonth + "." + (monthOfYear + 1) + "." + year);
+                        }
+                    }
+                }, mYear, mMonth, mDay);
+        datePickerDialog.show();
+    }
+
     // отображаем диалоговое окно для выбора даты
-    public void setDate() {
-        new DatePickerDialog(ProfileActivity.this, d,
-                dateAndTime.get(Calendar.YEAR),
-                dateAndTime.get(Calendar.MONTH),
-                dateAndTime.get(Calendar.DAY_OF_MONTH))
-                .show();
-    }
-
-    // установка начальных даты и времени
-    private void setInitialDateTime() {
-        birthday.setText(DateUtils.formatDateTime(this,
-                dateAndTime.getTimeInMillis(),
-                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
-    }
-
-    // установка обработчика выбора даты
-    DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            dateAndTime.set(Calendar.YEAR, year);
-            dateAndTime.set(Calendar.MONTH, monthOfYear);
-            dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            setInitialDateTime();
-        }
-    };
+//    public void setDate() {
+//        new DatePickerDialog(ProfileActivity.this, d,
+//                calendar.get(Calendar.YEAR),
+//                calendar.get(Calendar.MONTH),
+//                calendar.get(Calendar.DAY_OF_MONTH))
+//                .show();
+//    }
+//
+//    // установка начальных даты и времени
+//    private void setInitialDateTime() {
+//        birthday.setText(DateUtils.formatDateTime(this,
+//                calendar.getTimeInMillis(),
+//                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
+//    }
+//
+//    // установка обработчика выбора даты
+//    DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
+//        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//            calendar.set(Calendar.YEAR, year);
+//            calendar.set(Calendar.MONTH, monthOfYear);
+//            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//            setInitialDateTime();
+//        }
+//    };
 }
