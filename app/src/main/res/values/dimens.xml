@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="profile_row_text_size">18sp</dimen>
+    <dimen name="profile_row_text_size">16sp</dimen>
     <dimen name="profile_layout_margin_top_bottom">15dp</dimen>
     <dimen name="profile_layout_margin_left_right">35dp</dimen>
     <dimen name="profile_layout_text_size_top">22sp</dimen>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Счетчик Калорий</string>
+    <string name="app_name">Счетчик Калорий 2</string>
     <string name="main_activity_name">Дневник</string>
 
     <string name="activity_profile">Профиль</string>
