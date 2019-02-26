@@ -1,25 +1,28 @@
 package com.khakin.valentin.calorie_counter.bean;
 
-public class User {
+public class UserInfo {
     int id;
     String sex, birthday, height, weight, activity;
-    String p, f , c, total;
 
-    public User(){
+    public UserInfo(){
 
     }
 
-    public User(int _id, String _sex, String _birthday, String _height, String _weight, String _activity, String _p, String _f, String _c, String _total){
+    public UserInfo(String _sex, String _birthday, String _height, String _weight, String _activity){
+        this.sex = _sex;
+        this.birthday = _birthday;
+        this.height = _height;
+        this.weight = _weight;
+        this.activity = _activity;
+    }
+
+    public UserInfo(int _id, String _sex, String _birthday, String _height, String _weight, String _activity){
         this.id = _id;
         this.sex = _sex;
         this.birthday = _birthday;
         this.height = _height;
         this.weight = _weight;
         this.activity = _activity;
-        this.p = _p;
-        this.f = _f;
-        this.c = _c;
-        this.total = _total;
     }
 
     public int getId() {
@@ -68,37 +71,5 @@ public class User {
 
     public void setActivity(String activity) {
         this.activity = activity;
-    }
-
-    public String getP() {
-        return p;
-    }
-
-    public void setP(String p) {
-        this.p = p;
-    }
-
-    public String getF() {
-        return f;
-    }
-
-    public void setF(String f) {
-        this.f = f;
-    }
-
-    public String getC() {
-        return c;
-    }
-
-    public void setC(String c) {
-        this.c = c;
-    }
-
-    public String getTotal() {
-        return total;
-    }
-
-    public void setTotal(String total) {
-        this.total = total;
     }
 }
