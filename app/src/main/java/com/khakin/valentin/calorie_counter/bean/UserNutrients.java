@@ -1,11 +1,18 @@
 package com.khakin.valentin.calorie_counter.bean;
 
 public class UserNutrients {
-    int id;
-    String p, f, c, total;
+    private int id;
+    private String p, f, c, total;
 
     public UserNutrients(){
 
+    }
+
+    public UserNutrients(String _p, String _f, String _c, String _total){
+        this.p = _p;
+        this.f = _f;
+        this.c = _c;
+        this.total = _total;
     }
 
     public UserNutrients(int _id, String _p, String _f, String _c, String _total){

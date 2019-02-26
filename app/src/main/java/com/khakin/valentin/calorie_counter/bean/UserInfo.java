@@ -1,8 +1,8 @@
 package com.khakin.valentin.calorie_counter.bean;
 
 public class UserInfo {
-    int id;
-    String sex, birthday, height, weight, activity;
+    private int id;
+    private String sex, birthday, height, weight, activity;
 
     public UserInfo(){
 

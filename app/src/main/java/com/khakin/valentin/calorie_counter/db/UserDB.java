@@ -1,6 +1,7 @@
 package com.khakin.valentin.calorie_counter.db;
 
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -8,12 +9,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.khakin.valentin.calorie_counter.bean.UserInfo;
+import com.khakin.valentin.calorie_counter.bean.UserNutrients;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class UserDB extends SQLiteOpenHelper {
 
@@ -71,16 +71,16 @@ public class UserDB extends SQLiteOpenHelper {
             String sex = "0";
             String birthday = "25.05.1998";
             String height = "187";
-            String weight = "85";
+            String weight = "85.0";
             String activity = "3";
 
             String age = getAge(birthday);
 
             String total;
             if (Integer.parseInt(sex) == 0) {
-                total = String.valueOf(Math.round(Integer.parseInt(weight) * 9.99 + Integer.parseInt(height) * 6.25 - Integer.parseInt(age) * 4.92 + 5));
+                total = String.valueOf(Math.round(Double.parseDouble(weight) * 9.99 + Integer.parseInt(height) * 6.25 - Integer.parseInt(age) * 4.92 + 5));
             } else {
-                total = String.valueOf(Math.round(Integer.parseInt(weight) * 9.99 + Integer.parseInt(height) * 6.25 - Integer.parseInt(age) * 4.92 - 161));
+                total = String.valueOf(Math.round(Double.parseDouble(weight) * 9.99 + Integer.parseInt(height) * 6.25 - Integer.parseInt(age) * 4.92 - 161));
             }
 
             String p = String.valueOf(Integer.parseInt(total) * 0.35 / 4);
@@ -94,12 +94,12 @@ public class UserDB extends SQLiteOpenHelper {
 
     private void initFirst(String sex, String birthday, String height, String weight, String activity) {
         UserInfo userInfo = new UserInfo(sex, birthday, height, weight, activity);
-
         this.addUserInfo(userInfo);
     }
 
     private void initSecond(String p, String f, String c, String total) {
-
+        UserNutrients userNutrients = new UserNutrients(p, f, c, total);
+        this.addUserNutrients(userNutrients);
     }
 
     private String getAge(String birthday){
@@ -150,13 +150,14 @@ public class UserDB extends SQLiteOpenHelper {
     public UserInfo getUserInfo(int id){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_USER_INFO_NAME, new String[] {
+        @SuppressLint("Recycle") Cursor cursor = db.query(TABLE_USER_INFO_NAME, new String[] {
                 COLUMN_ID, COLUMN_SEX, COLUMN_BIRTHDAY, COLUMN_HEIGHT, COLUMN_WEIGHT, COLUMN_ACTIVITY },
                 COLUMN_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
+        assert cursor != null;
         UserInfo user = new UserInfo(
                 Integer.parseInt(cursor.getString(0)),
                 cursor.getString(1),
@@ -166,28 +167,6 @@ public class UserDB extends SQLiteOpenHelper {
                 cursor.getString(5));
         // return note
         return user;
-    }
-
-    public List<UserInfo> getAllUsersInfo() {
-        List<UserInfo> noteList = new ArrayList<UserInfo>();
-        // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_USER_INFO_NAME;
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                UserInfo note = new UserInfo();
-
-                // Adding note to list
-                noteList.add(note);
-            } while (cursor.moveToNext());
-        }
-
-        // return note list
-        return noteList;
     }
 
     private int getUsersInfoCount() {
@@ -256,5 +235,101 @@ public class UserDB extends SQLiteOpenHelper {
         // updating row
         return db.update(TABLE_USER_INFO_NAME, values, COLUMN_ID + " = ?",
                 new String[]{String.valueOf(userInfo.getId())});
+    }
+
+
+
+    private void addUserNutrients(UserNutrients userNutrients) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_P, userNutrients.getP());
+        values.put(COLUMN_F, userNutrients.getF());
+        values.put(COLUMN_C, userNutrients.getC());
+        values.put(COLUMN_TOTAL, userNutrients.getTotal());
+
+        // Inserting Row
+        db.insert(TABLE_USER_NUTRIENTS_NAME, null, values);
+
+        // Closing database connection
+        db.close();
+    }
+
+    public UserNutrients getUserNutrients(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        @SuppressLint("Recycle") Cursor cursor = db.query(TABLE_USER_NUTRIENTS_NAME, new String[] {
+                        COLUMN_ID, COLUMN_P, COLUMN_F, COLUMN_C, COLUMN_TOTAL },
+                COLUMN_ID + "=?",
+                new String[] { String.valueOf(id) }, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        assert cursor != null;
+        UserNutrients user = new UserNutrients(
+                Integer.parseInt(cursor.getString(0)),
+                cursor.getString(1),
+                cursor.getString(2),
+                cursor.getString(3),
+                cursor.getString(4));
+        // return note
+        return user;
+    }
+
+    private int getUsersNutrientsCount() {
+        String countQuery = "SELECT * FROM " + TABLE_USER_NUTRIENTS_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        int count = cursor.getCount();
+
+        cursor.close();
+
+        // return count
+        return count;
+    }
+
+    public int updateUserNutrientsP(UserNutrients userNutrients){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_P, userNutrients.getP());
+
+        // updating row
+        return db.update(TABLE_USER_NUTRIENTS_NAME, values, COLUMN_ID + " = ?",
+                new String[]{String.valueOf(userNutrients.getId())});
+    }
+
+    public int updateUserNutrientsF(UserNutrients userNutrients){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_F, userNutrients.getF());
+
+        // updating row
+        return db.update(TABLE_USER_NUTRIENTS_NAME, values, COLUMN_ID + " = ?",
+                new String[]{String.valueOf(userNutrients.getId())});
+    }
+
+    public int updateUserNutrientsC(UserNutrients userNutrients){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_C, userNutrients.getC());
+
+        // updating row
+        return db.update(TABLE_USER_NUTRIENTS_NAME, values, COLUMN_ID + " = ?",
+                new String[]{String.valueOf(userNutrients.getId())});
+    }
+
+    public int updateUserNutrientsTotal(UserNutrients userNutrients){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TOTAL, userNutrients.getTotal());
+
+        // updating row
+        return db.update(TABLE_USER_NUTRIENTS_NAME, values, COLUMN_ID + " = ?",
+                new String[]{String.valueOf(userNutrients.getId())});
     }
 }

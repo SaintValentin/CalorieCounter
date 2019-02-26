@@ -11,8 +11,10 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.khakin.valentin.calorie_counter.bean.UserInfo;
+import com.khakin.valentin.calorie_counter.bean.UserNutrients;
 import com.khakin.valentin.calorie_counter.db.UserDB;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -23,6 +25,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     UserDB userDB;
     UserInfo userInfo;
+    UserNutrients userNutrients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         userDB = new UserDB(this);
         userDB.init();
+
+        userInfo = userDB.getUserInfo(1);
+        userNutrients = userDB.getUserNutrients(1);
 
         sex = (TextView) findViewById(R.id.profile_row_top_sex_value);
         birthday = (TextView) findViewById(R.id.birthday_textView);
@@ -42,6 +48,23 @@ public class ProfileActivity extends AppCompatActivity {
         fats = (TextView) findViewById(R.id.fats_textView);
         carbohydrates = (TextView) findViewById(R.id.carbohydrates_textView);
         total = (TextView) findViewById(R.id.total_textView);
+
+
+        if (Integer.valueOf(userInfo.getSex()) == 0){
+            sex.setText("мужской");
+        } else {
+            sex.setText("женский");
+        }
+
+        birthday.setText(String.valueOf(userInfo.getBirthday()));
+        height.setText(String.valueOf(userInfo.getHeight()));
+        weight.setText(String.valueOf(userInfo.getWeight()));
+
+        total.setText(String.valueOf(userNutrients.getTotal()));
+        proteins.setText(String.valueOf(userNutrients.getP()));
+        fats.setText(String.valueOf(userNutrients.getF()));
+        carbohydrates.setText(String.valueOf(userNutrients.getC()));
+
     }
 
     public void onRowClick(View view){
@@ -58,32 +81,41 @@ public class ProfileActivity extends AppCompatActivity {
             case R.id.profile_row_weight:
                 changeWeight();
                 break;
-            case R.id.profile_row_activity:
-                changeActivity();
-                break;
-            case R.id.profile_row_proteins:
-                changeProteins();
-                break;
-            case R.id.profile_row_fats:
-                changeFats();
-                break;
-            case R.id.profile_row_carbohydrates:
-                changeCarbohydrates();
-                break;
+//            case R.id.profile_row_activity:
+//                changeActivity();
+//                break;
+//            case R.id.profile_row_proteins:
+//                changeProteins();
+//                break;
+//            case R.id.profile_row_fats:
+//                changeFats();
+//                break;
+//            case R.id.profile_row_carbohydrates:
+//                changeCarbohydrates();
+//                break;
         }
     }
 
     private void changeSex() {
+        if (Integer.valueOf(userInfo.getSex()) == 0){
+            userInfo.setSex("1");
+        } else {
+            userInfo.setSex("0");
+        }
+        userDB.updateUserSex(userInfo);
 
+        if (Integer.valueOf(userInfo.getSex()) == 0){
+            sex.setText("мужской");
+        } else {
+            sex.setText("женский");
+        }
+
+        updateTotalPFC();
     }
 
     private void changeBirthday() {
         setDate();
-
-        String s = String.valueOf(birthday.getText());
-
-        userInfo.setBirthday(s);
-        userDB.updateUserBirthday(userInfo);
+        updateTotalPFC();
     }
 
     private void changeHeight() {
@@ -139,6 +171,8 @@ public class ProfileActivity extends AppCompatActivity {
 
                         userInfo.setHeight(s);
                         userDB.updateUserHeight(userInfo);
+
+                        updateTotalPFC();
 
                         dialog.dismiss();
                     }
@@ -229,7 +263,9 @@ public class ProfileActivity extends AppCompatActivity {
                         weight.setText(s);
 
                         userInfo.setWeight(s);
-                        userDB.updateUserBirthday(userInfo);
+                        userDB.updateUserWeight(userInfo);
+
+                        updateTotalPFC();
 
                         dialog.dismiss();
                     }
@@ -526,8 +562,71 @@ public class ProfileActivity extends AppCompatActivity {
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
                         String date = simpleDateFormat.format(dayBirthday.getTime());
                         birthday.setText(date);
+
+                        userInfo.setBirthday(date);
+                        userDB.updateUserBirthday(userInfo);
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
+    }
+
+    public void updateTotalPFC() {
+        String age = getAge(userInfo.getBirthday());
+
+        String totalPFC;
+        if (Integer.parseInt(userInfo.getSex()) == 0) {
+            totalPFC = String.valueOf(Math.round(Double.parseDouble(userInfo.getWeight()) * 9.99 + Integer.parseInt(userInfo.getHeight()) * 6.25 - Integer.parseInt(age) * 4.92 + 5));
+        } else {
+            totalPFC = String.valueOf(Math.round(Double.parseDouble(userInfo.getWeight()) * 9.99 + Integer.parseInt(userInfo.getHeight()) * 6.25 - Integer.parseInt(age) * 4.92 - 161));
+        }
+
+        String p = String.valueOf(Integer.parseInt(totalPFC) * 0.35 / 4);
+        String f = String.valueOf(Integer.parseInt(totalPFC) * 0.20 / 9);
+        String c = String.valueOf(Integer.parseInt(totalPFC) * 0.45 / 4);
+
+        total.setText(totalPFC);
+        proteins.setText(p);
+        fats.setText(f);
+        carbohydrates.setText(c);
+
+        userNutrients.setTotal(totalPFC);
+        userDB.updateUserNutrientsTotal(userNutrients);
+
+        userNutrients.setP(p);
+        userDB.updateUserNutrientsP(userNutrients);
+
+        userNutrients.setF(f);
+        userDB.updateUserNutrientsF(userNutrients);
+
+        userNutrients.setC(c);
+        userDB.updateUserNutrientsC(userNutrients);
+    }
+
+    private String getAge(String birthday){
+        String age;
+
+        Calendar dayBirthday = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        try {
+            dayBirthday.setTime(simpleDateFormat.parse(birthday));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        int years = calendar.YEAR - dayBirthday.YEAR;
+        int month, day;
+        if (calendar.MONTH > dayBirthday.MONTH){
+            years++;
+        } else if (calendar.MONTH == dayBirthday.MONTH){
+            if (calendar.DAY_OF_MONTH >= dayBirthday.DAY_OF_MONTH){
+                years++;
+            }
+        }
+
+        age = String.valueOf(years);
+
+        return age;
     }
 }
