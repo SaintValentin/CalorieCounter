@@ -1,18 +1,55 @@
 package com.khakin.valentin.calorie_counter;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.khakin.valentin.calorie_counter.fragment.MainFragment;
+
 public class MainActivity extends AppCompatActivity {
+
+    static final int PAGE_COUNT = 7;
+    static int SELECTED_PAGE = PAGE_COUNT - 1;
+
+    ViewPager pager;
+    PagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle(R.string.main_activity_name);
+
+        pager = (ViewPager) findViewById(R.id.mainViewPager);
+        pagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
+        pager.setAdapter(pagerAdapter);
+
+        pager.setCurrentItem(SELECTED_PAGE);
+
+        pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset,
+                                       int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
     }
 
     @Override
@@ -67,5 +104,50 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        SELECTED_PAGE = pager.getCurrentItem();
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        pager.setCurrentItem(SELECTED_PAGE);
+        super.onResume();
+    }
+
+    private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
+
+        MyFragmentPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return MainFragment.newInstance(position);
+        }
+
+        @Override
+        public int getCount() {
+            return PAGE_COUNT;
+        }
+
     }
 }

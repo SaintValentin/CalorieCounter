@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:background="@color/tableBack"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        tools:ignore="Suspicious0dp">
+
+        <TableRow>
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dp"
+                android:paddingBottom="1dp"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
+        </TableRow>
+
+
+        <TableRow>
+            <TextView
+                style="@style/main_fragment_table_name"
+                android:text="@string/main_activity_table_column_norm_name"/>
+            <TextView
+                style="@style/main_fragment_table_name"
+                android:text="@string/main_activity_table_column_received_name"/>
+            <TextView
+                style="@style/main_fragment_table_name"
+                android:text="@string/main_activity_table_column_spent_name"/>
+            <TextView
+                style="@style/main_fragment_table_name"
+                android:text="@string/main_activity_table_column_shortage_name"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="0"
+                style="@style/main_fragment_table_value" />
+            <TextView
+                android:text="0"
+                style="@style/main_fragment_table_value" />
+            <TextView
+                android:text="0"
+                style="@style/main_fragment_table_value" />
+            <TextView
+                android:text="0"
+                style="@style/main_fragment_table_value" />
+        </TableRow>
+
+    </TableLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimaryDark"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10">
+
+    </ScrollView>
+
+    <LinearLayout
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <Button
+            style="@style/main_fragment_bottom_button"
+            android:text="@string/meal" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorGray"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="2dp"/>
+
+        <Button
+            style="@style/main_fragment_bottom_button"
+            android:layout_weight="0.6"
+            android:text="@string/water" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorGray"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="2dp"/>
+
+        <Button
+            style="@style/main_fragment_bottom_button"
+            android:text="@string/activity" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -106,4 +106,8 @@
     <string name="settings_meals_afternoon_tea">Полдник</string>
     <string name="settings_meals_dinner">Ужин</string>
     <string name="settings_interface_color">Цвет интерфейса</string>
+
+    <string name="meal">ЕДА</string>
+    <string name="water">ВОДА</string>
+    <string name="activity">УПР</string>
 </resources>

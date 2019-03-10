@@ -9,4 +9,6 @@
     <color name="colorWight">#fff</color>
     <color name="colorGray">#919191</color>
     <color name="colorBlue">#c80077b7</color>
+
+    <color name="tableBack">#40008577</color>
 </resources>
