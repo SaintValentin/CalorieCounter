@@ -22,7 +22,7 @@
                 android:paddingBottom="1dp"
                 android:textAlignment="center"
                 android:textSize="16sp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorBlack"
                 android:textStyle="bold"
                 android:layout_weight="1"/>
         </TableRow>
@@ -78,6 +78,7 @@
         android:layout_weight="1">
 
         <Button
+            android:id="@+id/food"
             style="@style/main_fragment_bottom_button"
             android:text="@string/meal" />
 
@@ -101,6 +102,7 @@
             android:layout_marginBottom="2dp"/>
 
         <Button
+            android:id="@+id/sport"
             style="@style/main_fragment_bottom_button"
             android:text="@string/activity" />
 

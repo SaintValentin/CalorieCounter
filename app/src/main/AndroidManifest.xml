@@ -26,6 +26,9 @@
         <activity android:name=".InsertActivity" android:parentActivityName=".MainActivity" android:label="@string/activity_insert"/>
         <activity android:name=".NotificationActivity" android:parentActivityName=".MainActivity" android:label="@string/activity_notification"/>
         <activity android:name=".SettingsActivity" android:parentActivityName=".MainActivity" android:label="@string/activity_settings"/>
+
+        <activity android:name=".FoodActivity" android:parentActivityName=".MainActivity" android:label="@string/activity_food"/>
+        <activity android:name=".SportActivity" android:parentActivityName=".MainActivity" android:label="@string/activity_sport"/>
     </application>
 
 </manifest>

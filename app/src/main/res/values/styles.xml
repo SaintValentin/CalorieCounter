@@ -9,9 +9,9 @@
     </style>
 
     <style name="dropDownListViewStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
-        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:background">@color/colorWight</item>
         <item name="android:listSelector">@drawable/item_selector</item>
-        <item name="android:textColor">@color/colorWight</item>
+        <item name="android:textColor">@color/colorBlack</item>
     </style>
 
     <style name="profile_scroll_view">
