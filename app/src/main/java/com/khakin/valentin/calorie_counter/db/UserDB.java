@@ -4,6 +4,7 @@ package com.khakin.valentin.calorie_counter.db;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.XmlResourceParser;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -64,15 +65,15 @@ public class UserDB extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public void init(){
+    public void init(UserInfo userInfo){
         int count = this.getUsersInfoCount();
         if (count == 0) {
 
-            String sex = "0";
-            String birthday = "25.05.1998";
-            String height = "187";
-            String weight = "85.0";
-            String activity = "3";
+            String sex = userInfo.getSex();
+            String birthday = userInfo.getBirthday();
+            String height = userInfo.getHeight();
+            String weight = userInfo.getWeight();
+            String activity = userInfo.getActivity();
 
             String age = getAge(birthday);
 
@@ -169,7 +170,7 @@ public class UserDB extends SQLiteOpenHelper {
         return user;
     }
 
-    private int getUsersInfoCount() {
+    public int getUsersInfoCount() {
         String countQuery = "SELECT * FROM " + TABLE_USER_INFO_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);

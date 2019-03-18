@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<products>
+    <product>
+        <name>Овсянка</name>
+        <p>11</p>
+        <f>6</f>
+        <c>65.4</c>
+        <ccal>359.6</ccal>
+    </product>
+    <product>
+        <name>Макароны</name>
+        <p>4.6</p>
+        <f>2.0</f>
+        <c>29.0</c>
+        <ccal>159.0</ccal>
+    </product>
+    <product>
+        <name>Рис</name>
+        <p>3.1</p>
+        <f>0.6</f>
+        <c>38.3</c>
+        <ccal>152.0</ccal>
+    </product>
+    <product>
+        <name>Творог</name>
+        <p>16.7</p>
+        <f>9.0</f>
+        <c>2.0</c>
+        <ccal>160.0</ccal>
+    </product>
+</products>

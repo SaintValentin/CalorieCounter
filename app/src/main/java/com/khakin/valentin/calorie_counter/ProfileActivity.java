@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.NumberPicker;
@@ -13,6 +14,9 @@ import android.widget.TextView;
 import com.khakin.valentin.calorie_counter.bean.UserInfo;
 import com.khakin.valentin.calorie_counter.bean.UserNutrients;
 import com.khakin.valentin.calorie_counter.db.UserDB;
+import com.khakin.valentin.calorie_counter.parse.UserParser;
+
+import org.xmlpull.v1.XmlPullParser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,7 +37,14 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         userDB = new UserDB(this);
-        userDB.init();
+
+        int count = userDB.getUsersInfoCount();
+        if (count == 0) {
+            XmlPullParser xpp = getResources().getXml(R.xml.user_default);
+            UserParser userParser = new UserParser();
+            UserInfo userInfo1 = userParser.parse(xpp);
+            userDB.init(userInfo1);
+        }
 
         userInfo = userDB.getUserInfo(1);
         userNutrients = userDB.getUserNutrients(1);

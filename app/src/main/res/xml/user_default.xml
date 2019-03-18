@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<default>
+    <user>
+        <sex>0</sex>
+        <birthday>25.05.1998</birthday>
+        <height>187</height>
+        <weight>85.0</weight>
+        <activity>3</activity>
+    </user>
+</default>
