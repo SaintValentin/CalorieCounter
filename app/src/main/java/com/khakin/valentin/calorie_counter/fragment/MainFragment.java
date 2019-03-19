@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.khakin.valentin.calorie_counter.FoodActivity;
 import com.khakin.valentin.calorie_counter.R;
@@ -22,6 +23,8 @@ public class MainFragment extends Fragment {
     static final String ARGUMENT_PAGE_NUMBER = "arg_page_number";
 
     int pageNumber;
+    String strtext;
+    String date;
 
     public static MainFragment newInstance(int page){
         MainFragment pageFragment = new MainFragment();
@@ -42,9 +45,10 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment, null);
 
-        TextView textView = (TextView) view.findViewById(R.id.date);
+        final TextView textView = (TextView) view.findViewById(R.id.date);
         String s = getDate();
         textView.setText(s);
+
 
         Button food = (Button) view.findViewById(R.id.food);
         food.setOnClickListener(
@@ -52,6 +56,8 @@ public class MainFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(getContext(), FoodActivity.class);
+                        //Toast.makeText(getContext(), textView.getText(), Toast.LENGTH_SHORT).show();
+                        intent.putExtra("date", textView.getText());
                         startActivity(intent);
                     }
                 }
@@ -91,6 +97,27 @@ public class MainFragment extends Fragment {
         return s;
     }
 
+    private String getDate2(){
+        String s;
+
+        Date currentDate = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy, E");
+
+        switch (6 - pageNumber){
+            case 0:
+                s = "Сегодня: " + simpleDateFormat.format(currentDate.getTime() - (1000 * 60 * 60 * 24 * (6 - pageNumber)) );
+                break;
+            case 1:
+                s = "Вчера: " + simpleDateFormat.format(currentDate.getTime() - (1000 * 60 * 60 * 24 * (6 - pageNumber)) );
+                break;
+            default:
+                s = simpleDateFormat.format(currentDate.getTime() - (1000 * 60 * 60 * 24 * (6 - pageNumber)) );
+                break;
+        }
+
+        return s;
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -109,6 +136,10 @@ public class MainFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+//        strtext = getArguments().getString("id");
+//        int n = Integer.parseInt(strtext) + 1;
+//        strtext = String.valueOf(n);
+//        Toast.makeText(getContext(), "Номер: " + strtext, Toast.LENGTH_SHORT).show();
     }
 
     @Override

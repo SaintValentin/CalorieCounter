@@ -45,6 +45,7 @@ public class ProductsParser {
                                 inEntry = false;
                             } else if("name".equalsIgnoreCase(tagName)){
                                 currentProduct.setName(textValue);
+                                System.out.println(textValue);
                             } else if("p".equalsIgnoreCase(tagName)){
                                 currentProduct.setP(textValue);
                             } else if("f".equalsIgnoreCase(tagName)){

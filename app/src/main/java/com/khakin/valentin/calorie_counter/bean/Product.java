@@ -9,22 +9,22 @@ public class Product {
     }
 
     public Product(String _name, String _p, String _f, String _c, String _ccal, String _weight){
-        name = _name;
-        p = _p;
-        f = _f;
-        c = _c;
-        ccal = _ccal;
-        weight = _weight;
+        this.name = _name;
+        this.p = _p;
+        this.f = _f;
+        this.c = _c;
+        this.ccal = _ccal;
+        this.weight = _weight;
     }
 
     public Product(int _id, String _name, String _p, String _f, String _c, String _ccal, String _weight){
-        id = _id;
-        name = _name;
-        p = _p;
-        f = _f;
-        c = _c;
-        ccal = _ccal;
-        weight = _weight;
+        this.id = _id;
+        this.name = _name;
+        this.p = _p;
+        this.f = _f;
+        this.c = _c;
+        this.ccal = _ccal;
+        this.weight = _weight;
     }
 
     public int getId() {
