@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0">
+
+        <android.support.v4.view.PagerTitleStrip
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </android.support.v4.view.ViewPager>
+
+    <ScrollView
+        android:id="@+id/scrollSport"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10" />
+
+    <LinearLayout
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.82">
+
+        <Button
+            style="@style/main_fragment_bottom_button"
+            android:text="@string/new_product" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorGray"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="2dp"/>
+
+        <Button
+            style="@style/main_fragment_bottom_button"
+            android:text="@string/new_dish" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

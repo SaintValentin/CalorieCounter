@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Счетчик Калорий 2</string>
+    <string name="app_name">СчетКалорий</string>
     <string name="main_activity_name">Дневник</string>
 
     <string name="activity_profile">Профиль</string>
@@ -9,6 +9,9 @@
     <string name="activity_notification">Напоминание</string>
     <string name="activity_settings">Настройки</string>
     <string name="action_exit">Выход</string>
+
+    <string name="activity_food">Поиск продукта</string>
+    <string name="activity_sport">Поиск нагрузки</string>
 
 
 
@@ -106,4 +109,11 @@
     <string name="settings_meals_afternoon_tea">Полдник</string>
     <string name="settings_meals_dinner">Ужин</string>
     <string name="settings_interface_color">Цвет интерфейса</string>
+
+    <string name="meal">ЕДА</string>
+    <string name="water">ВОДА</string>
+    <string name="activity">УПР</string>
+
+    <string name="new_product">Продукт</string>
+    <string name="new_dish">Блюдо</string>
 </resources>

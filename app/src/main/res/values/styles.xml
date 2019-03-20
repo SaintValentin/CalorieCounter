@@ -9,9 +9,9 @@
     </style>
 
     <style name="dropDownListViewStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
-        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:background">@color/colorWight</item>
         <item name="android:listSelector">@drawable/item_selector</item>
-        <item name="android:textColor">@color/colorWight</item>
+        <item name="android:textColor">@color/colorBlack</item>
     </style>
 
     <style name="profile_scroll_view">
@@ -83,6 +83,34 @@
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">@dimen/profile_small_text</item>
         <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="main_fragment_bottom_button" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/item_selector</item>
+        <item name="android:textColor">@color/colorWight</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="main_fragment_table_name">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:paddingTop">2dp</item>
+    </style>
+
+    <style name="main_fragment_table_value">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:translationY">-2dp</item>
     </style>
 
 </resources>
