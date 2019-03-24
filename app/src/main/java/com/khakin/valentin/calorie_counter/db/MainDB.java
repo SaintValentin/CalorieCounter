@@ -18,12 +18,20 @@ public class MainDB extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "main.db";
 
-    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_ID = "_id";
 
-    private static final String TABLE_MAIN_SCREEN = "main_screen";
+    private static final String TABLE_MAIN = "main";
     private static final String COLUMN_DATE = "date";
     private static final String COLUMN_PRODUCT_ID = "product_id";
     private static final String COLUMN_WEIGHT = "product_weight";
+
+    private static final String MAIN_Q = "CREATE TABLE main_screen (" + COLUMN_ID
+            + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLUMN_DATE + " TEXT, "
+            + COLUMN_PRODUCT_ID + " TEXT, "
+            + COLUMN_WEIGHT + " TEXT);";
+
+
 
     public static final String TABLE_PRODUCTS = "products";
     public static final String COLUMN_NAME = "name";
@@ -33,31 +41,30 @@ public class MainDB extends SQLiteOpenHelper {
     public static final String COLUMN_CCAL = "total";
     public static final String COLUMN_PRODUCT_WEIGHT = "product_weight";
 
+    private static final String PRODUCTS_Q = "CREATE TABLE products (" + COLUMN_ID
+            + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLUMN_NAME + " TEXT, "
+            + COLUMN_P + " TEXT, "
+            + COLUMN_F + " TEXT, "
+            + COLUMN_C + " TEXT, "
+            + COLUMN_CCAL + " TEXT, "
+            + COLUMN_PRODUCT_WEIGHT + " TEXT);";
+
+
+
     public MainDB(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE main_screen (" + COLUMN_ID
-                + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COLUMN_DATE + " TEXT, "
-                + COLUMN_PRODUCT_ID + " TEXT, "
-                + COLUMN_WEIGHT + " TEXT);");
-
-        sqLiteDatabase.execSQL("CREATE TABLE products (" + COLUMN_ID
-                + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COLUMN_NAME + " TEXT, "
-                + COLUMN_P + " TEXT, "
-                + COLUMN_F + " TEXT, "
-                + COLUMN_C + " TEXT, "
-                + COLUMN_CCAL + " TEXT, "
-                + COLUMN_PRODUCT_WEIGHT + " TEXT);");
+        sqLiteDatabase.execSQL(MAIN_Q);
+        sqLiteDatabase.execSQL(PRODUCTS_Q);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_MAIN_SCREEN);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_MAIN);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
         onCreate(sqLiteDatabase);
     }

@@ -29,19 +29,7 @@
 
         <Button
             style="@style/main_fragment_bottom_button"
-            android:text="@string/new_product" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorGray"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="2dp"/>
-
-        <Button
-            style="@style/main_fragment_bottom_button"
-            android:text="@string/new_dish" />
-
+            android:text="ADD" />
 
     </LinearLayout>
 

@@ -6,6 +6,7 @@
         <f>6</f>
         <c>65.4</c>
         <ccal>359.6</ccal>
+        <weight>100</weight>
     </product>
     <product>
         <name>Макароны</name>
@@ -13,6 +14,7 @@
         <f>2.0</f>
         <c>29.0</c>
         <ccal>159.0</ccal>
+        <weight>100</weight>
     </product>
     <product>
         <name>Рис</name>
@@ -20,6 +22,7 @@
         <f>0.6</f>
         <c>38.3</c>
         <ccal>152.0</ccal>
+        <weight>100</weight>
     </product>
     <product>
         <name>Творог</name>
@@ -27,5 +30,6 @@
         <f>9.0</f>
         <c>2.0</c>
         <ccal>160.0</ccal>
+        <weight>100</weight>
     </product>
 </products>

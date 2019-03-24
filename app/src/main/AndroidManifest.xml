@@ -12,7 +12,8 @@
         android:theme="@style/AppTheme"
         android:name=".MyApplication"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,6 +30,9 @@
 
         <activity android:name=".FoodActivity" android:parentActivityName=".MainActivity" android:label="@string/activity_food"/>
         <activity android:name=".SportActivity" android:parentActivityName=".MainActivity" android:label="@string/activity_sport"/>
+
+        <provider android:name="com.khakin.valentin.calorie_counter.provider.MainProvider"
+            android:authorities="com.khakin.valentin.calorie_counter.provider.MainClass"/>
     </application>
 
 </manifest>

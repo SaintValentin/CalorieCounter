@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TableRow>
         <TextView
-            android:id="@+id/productId"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="16sp"/>
-        <TextView
+            android:textColor="@color/colorBlack"
             android:id="@+id/productName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="9"
-            android:textSize="16sp"/>
+            android:textSize="18sp"
+            android:paddingStart="30dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="7dp"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/productWeight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            tools:ignore="RtlSymmetry" />
     </TableRow>
 
     <TableRow>
@@ -25,35 +35,28 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:textSize="12sp"/>
+            android:textSize="14sp"/>
         <TextView
             android:id="@+id/productF"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:textSize="12sp"/>
+            android:textSize="14sp"/>
         <TextView
             android:id="@+id/productC"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:textSize="12sp"/>
+            android:textSize="14sp"/>
         <TextView
             android:id="@+id/productCcal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.75"
             android:textAlignment="center"
-            android:textSize="12sp"/>
-        <TextView
-            android:id="@+id/productWeight"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:textSize="12sp"/>
+            android:textSize="14sp"/>
     </TableRow>
 
 

@@ -1,9 +1,17 @@
 package com.khakin.valentin.calorie_counter;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 public class SportActivity extends AppCompatActivity {
+
+    final Uri CONTACT_URI = Uri
+            .parse("content://com.khakin.valentin.calorie_counter.ContentProvider/contacts");
+
+    final String CONTACT_NAME = "name";
+    final String CONTACT_EMAIL = "email";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
