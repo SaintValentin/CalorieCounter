@@ -2,6 +2,7 @@ package com.khakin.valentin.calorie_counter;
 
 
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -25,15 +26,15 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.khakin.valentin.calorie_counter.adapter.DataAdapter;
+import com.khakin.valentin.calorie_counter.adapter.ProductAdapter;
 import com.khakin.valentin.calorie_counter.bean.Product;
 import com.khakin.valentin.calorie_counter.db.MainDB;
 import com.khakin.valentin.calorie_counter.fragment.MainFragment;
 import com.khakin.valentin.calorie_counter.parse.ProductsParser;
 import com.khakin.valentin.calorie_counter.provider.MainClass;
-import com.khakin.valentin.calorie_counter.provider.MainProvider;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -41,8 +42,9 @@ import java.util.ArrayList;
 
 public class FoodActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, OnItemClickListener {
 
+    String date;
     private ListView listView;
-    private DataAdapter mAdapter;
+    private ProductAdapter mAdapter;
     MainDB mainDB;
 
     @Override
@@ -78,20 +80,6 @@ public class FoodActivity extends AppCompatActivity implements LoaderCallbacks<C
                                 String newProductCcal = String.valueOf(edProductCcal.getText());
                                 String newProductWeight = String.valueOf(edProductWeight.getText());
 
-
-//                                Toast.makeText(getApplicationContext(), newProductName + newProductP + newProductF +
-//                                        newProductC + newProductCcal + newProductWeight, Toast.LENGTH_SHORT).show();
-
-//                                ContentValues contentValues = new ContentValues();
-//                                contentValues.put(MainClass.Products.COLUMN_NAME, newProductName);
-//                                contentValues.put(MainClass.Products.COLUMN_P, newProductP);
-//                                contentValues.put(MainClass.Products.COLUMN_F, newProductF);
-//                                contentValues.put(MainClass.Products.COLUMN_C, newProductC);
-//                                contentValues.put(MainClass.Products.COLUMN_CCAL, newProductCcal);
-//                                contentValues.put(MainClass.Products.COLUMN_PRODUCT_WEIGHT, newProductWeight);
-//
-//                                mainProvider.insert(MainClass.Products.CONTENT_URI, contentValues);
-
                                 addProduct(newProductName, newProductP, newProductF, newProductC,
                                         newProductCcal, newProductWeight);
 
@@ -113,10 +101,11 @@ public class FoodActivity extends AppCompatActivity implements LoaderCallbacks<C
 
 
         Intent intent = getIntent();
-        String date = intent.getStringExtra("date");
+        date = intent.getStringExtra("date");
         date = date.replaceAll("Сегодня: ", "");
         date = date.replaceAll("Вчера: ", "");
         date = date.substring(0, 10);
+        System.out.println(date);
 
 
         listView = (ListView) findViewById(R.id.listFood);
@@ -137,27 +126,12 @@ public class FoodActivity extends AppCompatActivity implements LoaderCallbacks<C
             }
         }
 
-
-        mAdapter = new DataAdapter(this, null, 0);
-
-//        List<String> list = mainDB.selectAllProducts();
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
-//        listView.setAdapter(adapter);
+        mAdapter = new ProductAdapter(this, null, 0);
 
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(this);
         registerForContextMenu(listView);
         getSupportLoaderManager().initLoader(0, null, this);
-
-//        listView.setClickable(true);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @SuppressLint("ResourceType")
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-////                Toast.makeText(getApplicationContext(), "Номер: " + l, Toast.LENGTH_SHORT).show();
-//                fromActivity((int) (l));
-//            }
-//        });
     }
 
     public void fromActivity(int _id){
@@ -189,7 +163,7 @@ public class FoodActivity extends AppCompatActivity implements LoaderCallbacks<C
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
     }
 
@@ -236,6 +210,19 @@ public class FoodActivity extends AppCompatActivity implements LoaderCallbacks<C
 
     final String LOG_TAG = "myLogs";
 
+    public void selectP(String weight, final long id){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MainClass.Main.COLUMN_DATE, date);
+        contentValues.put(MainClass.Main.COLUMN_WEIGHT, weight);
+        contentValues.put(MainClass.Main.COLUMN_PRODUCT_ID, id);
+
+        Uri i = getContentResolver().insert(MainClass.Main.CONTENT_URI, contentValues);
+        Log.d(LOG_TAG, "insert to Main, result Uri : " + i.toString());
+
+        onStop();
+        finish();
+    }
+
     public void addProduct(String name, String p, String f, String c, String ccal, String weight){
         ContentValues contentValues = new ContentValues();
         contentValues.put(MainClass.Products.COLUMN_NAME, name);
@@ -249,18 +236,148 @@ public class FoodActivity extends AppCompatActivity implements LoaderCallbacks<C
         Log.d(LOG_TAG, "insert, result Uri : " + newUri.toString());
     }
 
+    public void selectProduct(final long id){
+        Uri uri = Uri.parse(MainClass.Products.SCHEME + MainClass.AUTHORITY + MainClass.Products.PATH_PRODUCTS_ID + id);
+        ContentResolver contentResolver = getContentResolver();
+        Cursor cursor = contentResolver.query(uri, null, null, null, null);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(FoodActivity.this);
+
+        String sName = null;
+        String sWeight = null;
+
+        if(cursor!=null){
+            while (cursor.moveToNext()) {
+                // получаем каждый контакт
+                sName = cursor.getString(cursor.getColumnIndex(MainClass.Products.COLUMN_NAME));
+                sWeight = cursor.getString(cursor.getColumnIndex(MainClass.Products.COLUMN_PRODUCT_WEIGHT));
+            }
+            cursor.close();
+        }
+
+        builder.setTitle("Добавить: " + sName);
+
+        final View layout = getLayoutInflater().inflate(R.layout.add_to_date, null);
+        builder.setView(layout);
+
+        //final TextView name = (TextView)layout.findViewById(R.id.selectedProduct);
+        final TextView weight = (TextView)layout.findViewById(R.id.selectedWeight);
+
+        //name.setText(sName);
+        weight.setText(sWeight);
+
+
+        builder.setPositiveButton("ОК",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        String sWeight = String.valueOf(weight.getText());
+                        selectP(sWeight, id);
+                        dialog.dismiss();
+                    }
+                })
+
+                .setNegativeButton("Отмена",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+        Log.d(LOG_TAG, "select, result Uri : ");
+    }
+
+    public void editProduct(final long id){
+
+        String productName = null;
+        String productP = null;
+        String productF = null;
+        String productC = null;
+        String productCcal = null;
+        String productWeight = null;
+
+        Uri uri = Uri.parse(MainClass.Products.SCHEME + MainClass.AUTHORITY + MainClass.Products.PATH_PRODUCTS_ID + id);
+        ContentResolver contentResolver = getContentResolver();
+        Cursor cursor = contentResolver.query(uri, null, null, null, null);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(FoodActivity.this);
+
+        builder.setTitle("Редактирование");
+
+        final View layout = getLayoutInflater().inflate(R.layout.add_food, null);
+        builder.setView(layout);
+
+        if(cursor!=null){
+            while (cursor.moveToNext()) {
+                // получаем каждый контакт
+                productName = cursor.getString(cursor.getColumnIndex(MainClass.Products.COLUMN_NAME));
+                productP = cursor.getString(cursor.getColumnIndex(MainClass.Products.COLUMN_P));
+                productF = cursor.getString(cursor.getColumnIndex(MainClass.Products.COLUMN_F));
+                productC = cursor.getString(cursor.getColumnIndex(MainClass.Products.COLUMN_C));
+                productCcal = cursor.getString(cursor.getColumnIndex(MainClass.Products.COLUMN_CCAL));
+                productWeight = cursor.getString(cursor.getColumnIndex(MainClass.Products.COLUMN_PRODUCT_WEIGHT));
+            }
+            cursor.close();
+        }
+
+        final EditText edProductName = layout.findViewById(R.id.newProductName);
+        final EditText edProductP = layout.findViewById(R.id.newProductP);
+        final EditText edProductF = layout.findViewById(R.id.newProductF);
+        final EditText edProductC = layout.findViewById(R.id.newProductC);
+        final EditText edProductCcal = layout.findViewById(R.id.newProductCcal);
+        final EditText edProductWeight = layout.findViewById(R.id.newProductWeight);
+
+        edProductName.setText(productName);
+        edProductP.setText(productP);
+        edProductF.setText(productF);
+        edProductC.setText(productC);
+        edProductCcal.setText(productCcal);
+        edProductWeight.setText(productWeight);
+
+        builder.setPositiveButton("ОК",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String newProductName = String.valueOf(edProductName.getText());
+                        String newProductP = String.valueOf(edProductP.getText());
+                        String newProductF = String.valueOf(edProductF.getText());
+                        String newProductC = String.valueOf(edProductC.getText());
+                        String newProductCcal = String.valueOf(edProductCcal.getText());
+                        String newProductWeight = String.valueOf(edProductWeight.getText());
+
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(MainClass.Products.COLUMN_NAME, newProductName);
+                        contentValues.put(MainClass.Products.COLUMN_P, newProductP);
+                        contentValues.put(MainClass.Products.COLUMN_F, newProductF);
+                        contentValues.put(MainClass.Products.COLUMN_C, newProductC);
+                        contentValues.put(MainClass.Products.COLUMN_CCAL, newProductCcal);
+                        contentValues.put(MainClass.Products.COLUMN_PRODUCT_WEIGHT, newProductWeight);
+
+                        Uri uri = ContentUris.withAppendedId(MainClass.Products.CONTENT_URI, id);
+                        getContentResolver().update(uri, contentValues, null, null);
+
+                        dialog.dismiss();
+                    }
+                })
+
+                .setNegativeButton("Отмена",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+        Log.d(LOG_TAG, "edit, result Uri : ");
+    }
+
     public void delProduct(long id){
         Uri uri = ContentUris.withAppendedId(MainClass.Products.CONTENT_URI, id);
         int cnt = getContentResolver().delete(uri, null, null);
         Log.d(LOG_TAG, "delete, result Uri : " + cnt);
-    }
-
-    public void editProduct(long id){
-        Log.d(LOG_TAG, "edit, result Uri : ");
-    }
-
-    public void selectProduct(long id){
-        Log.d(LOG_TAG, "select, result Uri : ");
     }
 
     @Override

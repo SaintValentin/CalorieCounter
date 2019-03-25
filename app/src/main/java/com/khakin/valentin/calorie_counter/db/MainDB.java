@@ -22,16 +22,8 @@ public class MainDB extends SQLiteOpenHelper {
 
     private static final String TABLE_MAIN = "main";
     private static final String COLUMN_DATE = "date";
-    private static final String COLUMN_PRODUCT_ID = "product_id";
+    private static final String COLUMN_FK_PRODUCT_ID = "fk_product_id";
     private static final String COLUMN_WEIGHT = "product_weight";
-
-    private static final String MAIN_Q = "CREATE TABLE main_screen (" + COLUMN_ID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + COLUMN_DATE + " TEXT, "
-            + COLUMN_PRODUCT_ID + " TEXT, "
-            + COLUMN_WEIGHT + " TEXT);";
-
-
 
     public static final String TABLE_PRODUCTS = "products";
     public static final String COLUMN_NAME = "name";
@@ -41,6 +33,15 @@ public class MainDB extends SQLiteOpenHelper {
     public static final String COLUMN_CCAL = "total";
     public static final String COLUMN_PRODUCT_WEIGHT = "product_weight";
 
+
+    private static final String MAIN_Q = "CREATE TABLE main (" + COLUMN_ID
+            + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLUMN_DATE + " TEXT, "
+            + COLUMN_WEIGHT + " TEXT, "
+            + COLUMN_FK_PRODUCT_ID + " INTEGER, "
+            + " FOREIGN KEY (" + COLUMN_FK_PRODUCT_ID + ") REFERENCES "
+            + TABLE_PRODUCTS + "(" + COLUMN_ID + "));";
+
     private static final String PRODUCTS_Q = "CREATE TABLE products (" + COLUMN_ID
             + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COLUMN_NAME + " TEXT, "
@@ -49,7 +50,6 @@ public class MainDB extends SQLiteOpenHelper {
             + COLUMN_C + " TEXT, "
             + COLUMN_CCAL + " TEXT, "
             + COLUMN_PRODUCT_WEIGHT + " TEXT);";
-
 
 
     public MainDB(Context context){
@@ -67,21 +67,6 @@ public class MainDB extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_MAIN);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
         onCreate(sqLiteDatabase);
-    }
-
-    private void addDish(Product product) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_DATE, product.getName());
-        values.put(COLUMN_PRODUCT_ID, product.getP());
-        values.put(COLUMN_WEIGHT, product.getWeight());
-
-        // Inserting Row
-        db.insert(TABLE_PRODUCTS, null, values);
-
-        // Closing database connection
-        db.close();
     }
 
     public Product getDish(int id){

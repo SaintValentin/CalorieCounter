@@ -4,9 +4,11 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 public final class MainClass {
-    static final String AUTHORITY = "com.khakin.valentin.calorie_counter.provider.MainClass";
+    public static final String AUTHORITY = "com.khakin.valentin.calorie_counter.provider.MainClass";
 
     private MainClass() {}
+
+    public static String COLUMN_ID = "_id";
 
     public static final class Main implements BaseColumns {
         private Main() {}
@@ -21,9 +23,9 @@ public final class MainClass {
         static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.com.calorie_counter.main";
         static final String DEFAULT_SORT_ORDER = "date ASC";
 
-        static final String COLUMN_DATE   = "date";
-        static final String COLUMN_PRODUCT_ID   = "product_id";
-        static final String COLUMN_WEIGHT   = "product_weight";
+        public static final String COLUMN_DATE   = "date";
+        public static final String COLUMN_PRODUCT_ID   = "fk_product_id";
+        public static final String COLUMN_WEIGHT   = "product_weight";
 
         public static final String[] DEFAULT_PROJECTION = new String[] {
                 MainClass.Main._ID,
@@ -36,9 +38,9 @@ public final class MainClass {
     public static final class Products implements BaseColumns {
         private Products(){}
         static final String TABLE_NAME = "products";
-        private static final String SCHEME = "content://";
-        private static final String PATH_PRODUCTS = "/products";
-        private static final String PATH_PRODUCTS_ID = "/products/";
+        public static final String SCHEME = "content://";
+        public static final String PATH_PRODUCTS = "/products";
+        public static final String PATH_PRODUCTS_ID = "/products/";
         static final int PRODUCTS_ID_PATH_POSITION = 1;
         public static final Uri CONTENT_URI =  Uri.parse(SCHEME + AUTHORITY + PATH_PRODUCTS);
         public static final Uri CONTENT_ID_URI_BASE = Uri.parse(SCHEME + AUTHORITY + PATH_PRODUCTS_ID);

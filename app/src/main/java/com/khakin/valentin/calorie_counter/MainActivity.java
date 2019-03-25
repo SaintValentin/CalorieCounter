@@ -8,6 +8,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     static final int PAGE_COUNT = 7;
     static int SELECTED_PAGE = PAGE_COUNT - 1;
+    String TAG = "P: ";
 
     ViewPager pager;
     PagerAdapter pagerAdapter;
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-
+                Log.d(TAG, "onPageSelected, position = " + position);
             }
 
             @Override

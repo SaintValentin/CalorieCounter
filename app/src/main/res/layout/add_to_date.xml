@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--<TextView-->
+        <!--android:id="@+id/selectedProduct"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:paddingStart="35dp"-->
+        <!--android:textSize="18sp"-->
+        <!--android:textColor="@color/colorBlack"-->
+        <!--tools:ignore="RtlSymmetry" />-->
+
+    <EditText
+        android:id="@+id/selectedWeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:inputType="number"
+        android:textAlignment="center"/>
+
+</LinearLayout>

@@ -12,11 +12,11 @@ import android.widget.TextView;
 import com.khakin.valentin.calorie_counter.R;
 import com.khakin.valentin.calorie_counter.provider.MainClass;
 
-public class DataAdapter extends CursorAdapter {
+public class ProductAdapter extends CursorAdapter {
 
     private LayoutInflater mInflater; //нужен для создания объектов класса View
 
-    public DataAdapter(Context context, Cursor c, int flags) {
+    public ProductAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
