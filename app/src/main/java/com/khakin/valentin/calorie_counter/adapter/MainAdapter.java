@@ -39,6 +39,9 @@ public class MainAdapter extends CursorAdapter {
 
         long id = cur.getLong(cur.getColumnIndex(MainClass.Main._ID));
         productName = cur.getString(cur.getColumnIndex(MainClass.Main.COLUMN_PRODUCT_ID));
+
+//        long id = cur.getLong(cur.getColumnIndex(MainClass.Products._ID));
+//        productName = cur.getString(cur.getColumnIndex(MainClass.Products.COLUMN_NAME));
 //        productP = cur.getString(cur.getColumnIndex(MainClass.Products.COLUMN_P));
 //        productF = cur.getString(cur.getColumnIndex(MainClass.Products.COLUMN_F));
 //        productC = cur.getString(cur.getColumnIndex(MainClass.Products.COLUMN_C));
@@ -80,29 +83,4 @@ public class MainAdapter extends CursorAdapter {
         TextView tvProductWeight;
         long productID;
     }
-
-//    private Cursor mergeCursor(Cursor c){
-//        Cursor [] m = new Cursor[c.getCount()];
-//
-//        if (c.moveToFirst())
-//            for (int k = 0; k<c.getCount();k++){
-//                //Find the mobile numbers
-//                Cursor u = this.getContentResolver().query(
-//                        MainClass.Products.CONTENT_URI,
-//                        MainClass.Products.DEFAULT_PROJECTION,
-//                        null,
-//                        null,
-//                        null
-//                );
-//                int i = 0;
-//                if (u.moveToFirst())
-//                    m[i++] = u;
-//            } //for Each key
-//
-//        return new MergeCursor(m);
-//    }
-//
-//    private ContentProvider getContentResolver() {
-//        return getContentResolver();
-//    }
 }

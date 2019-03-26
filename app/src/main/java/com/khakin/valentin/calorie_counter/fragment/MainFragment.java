@@ -3,6 +3,7 @@ package com.khakin.valentin.calorie_counter.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,6 +26,7 @@ import com.khakin.valentin.calorie_counter.FoodActivity;
 import com.khakin.valentin.calorie_counter.R;
 import com.khakin.valentin.calorie_counter.SportActivity;
 import com.khakin.valentin.calorie_counter.adapter.MainAdapter;
+import com.khakin.valentin.calorie_counter.db.MainDB;
 import com.khakin.valentin.calorie_counter.provider.MainClass;
 
 import java.lang.reflect.Array;
@@ -41,6 +43,7 @@ public class MainFragment extends Fragment implements LoaderCallbacks<Cursor> {
     int pageNumber;
     String date;
     ListView listView;
+    MainDB mainDB;
     private MainAdapter mAdapter;
     private Cursor mCursor, pCursor;
 
@@ -69,6 +72,8 @@ public class MainFragment extends Fragment implements LoaderCallbacks<Cursor> {
         String s = getDate();
         textView.setText(s);
 
+        mainDB = new MainDB(getContext());
+
         date = s;
         date = date.replaceAll("Сегодня: ", "");
         date = date.replaceAll("Вчера: ", "");
@@ -94,11 +99,30 @@ public class MainFragment extends Fragment implements LoaderCallbacks<Cursor> {
                 i++;
             } while (mCursor.moveToNext());
 
+
+
+        boolean after_first = false;
+        StringBuilder sb = new StringBuilder();
+        for (String s1: selectionArgs) {
+            if (after_first) {
+                sb.append(",");
+            } else {
+                after_first = true;
+            }
+            sb.append(s1);
+        }
+        String s1 = sb.toString();
+
+//        SQLiteDatabase sql = mainDB.getReadableDatabase();
+//        String query = "SELECT * FROM products WHERE id IN (" + s1 + ")";
+//
+//        pCursor = sql.rawQuery(query, null);
+
 //        pCursor = getActivity().getContentResolver().query(
 //                MainClass.Products.CONTENT_URI,
 //                MainClass.Products.DEFAULT_PROJECTION,
-//                MainClass.COLUMN_ID + "=?",
-//                selectionArgs,
+//                MainClass.Products._ID + "=?",
+//                new String[] {s1},
 //                null
 //        );
 
